@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tsubasa - Pullover Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header .logo h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        #hero {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #hero h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        #product {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 300px;
+            background-color: white;
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        #cart {
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        #cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #cart-items li {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        #total {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Tsubasa</h1>
+            <p>Fashion for the bold.</p>
+        </div>
+        <nav>
+            <a href="#product">Produkt</a>
+            <a href="#cart">Warenkorb</a>
+            <a href="#about">Über Uns</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h2>Entdecke den Tsubasa Pullover</h2>
+            <p>Streetwear, die deinen Style definiert. Nur für 59,00 €!</p>
+        </section>
+
+        <section id="product">
+            <h2>Unser Produkt</h2>
+            <div class="product" data-id="1" data-price="59.00">
+                <img src="pullover.jpg" alt="Tsubasa Pullover">
+                <h3>Tsubasa Pullover</h3>
+                <p>Preis: 59,00 €</p>
+                <button class="add-to-cart">In den Warenkorb</button>
+            </div>
+        </section>
+
+        <section id="cart">
+            <h2>Warenkorb</h2>
+            <ul id="cart-items"></ul>
+            <p id="total">Gesamt: 0,00 €</p>
+        </section>
+
+        <section id="about">
+            <h2>Über Tsubasa</h2>
+            <p>Tsubasa steht für hochwertige Streetwear mit Stil und Leidenschaft. Unsere Vision ist es, Mode mit Persönlichkeit zu schaffen.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tsubasa. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script>
+        const cart = [];
+        const cartItemsElement = document.getElementById("cart-items");
+        const totalElement = document.getElementById("total");
+
+        // Event Listener für den "In den Warenkorb"-Button
+        document.querySelector(".add-to-cart").addEventListener("click", (event) => {
+            const productElement = event.target.closest(".product");
+            const productName = productElement.querySelector("h3").innerText;
+            const productPrice = parseFloat(productElement.dataset.price);
+
+            cart.push({ name: productName, price: productPrice });
+            updateCart();
+        });
+
+        // Funktion zum Aktualisieren des Warenkorbs
+        function updateCart() {
+            cartItemsElement.innerHTML = "";
+            let total = 0;
+
+            cart.forEach((item) => {
+                const li = document.createElement("li");
+                li.innerText = `${item.name} - ${item.price.toFixed(2)} €`;
+                cartItemsElement.appendChild(li);
+                total += item.price;
+            });
+
+            totalElement.innerText = `Gesamt: ${total.toFixed(2)} €`;
+        }
+    </script>
+</body>
+</html>
